@@ -7,8 +7,8 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 const generateAccessAndRefreshToken = async (userId) => {
   try {
     const user = await User.findById(userId);
-    const accessToken = generateAccessToken();
-    const refreshToken = generateRefreshToken();
+    const accessToken = user.generateAccessToken();
+    const refreshToken = user.generateRefreshToken();
 
     user.refreshToken = refreshToken;
     user.save({ validateBeforeSave: false });
@@ -148,7 +148,7 @@ const loginUser = asyncHandler(async (req, res) => {
           accessToken,
           refreshToken,
         },
-        'User logges in successfully'
+        'User logged in successfully'
       )
     );
 });
